@@ -1,5 +1,6 @@
 local MainScene = require "scenes.MainScene"
 local Credits = require "scenes.Credits" 
+local TestScene = require "scenes.TestScene" 
 local SceneHandler = {}
 
 function SceneHandler:new(sceneIndex, object)
@@ -7,7 +8,8 @@ function SceneHandler:new(sceneIndex, object)
 	{
 		Scenes = {
 			[1] = MainScene, 
-			[2] = Credits
+			[2] = Credits,
+			[99] = TestScene
 		},
 		SceneIndex = 1 or sceneIndex
 	}
@@ -18,6 +20,7 @@ end
 
 function SceneHandler:setScene(numIndex) 
 	self.SceneIndex = numIndex
+	self.Scenes[self.SceneIndex].load()
 end
 
 function SceneHandler:curScene()

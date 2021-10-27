@@ -1,7 +1,6 @@
 local Anime = {}
 
-function Anime:new(name, image, width, height, duration, startingSpriteNum, enabled, loop, playTillEnd, dialogPosition,
-    object)
+function Anime:new(name, image, width, height, duration, startingSpriteNum, enabled, loop, playTillEnd, object)
     if width == nil then
         width = image:getWidth()
     end

@@ -9,10 +9,8 @@ local Scene = {
 
 	end,
 	keyreleased = function(key)
-		if key == "s" then
-			print("s pressed")
-		end
-	end
+		
+	end	
 }
 
 return Scene
