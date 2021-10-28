@@ -28,7 +28,7 @@ function love.update(dt)
     sh:curScene().update(dt)
     -- timer1:update(dt)
     for i, obj in ipairs(globalUpdates) do 		
-		obj:update(dt)
+        if obj ~= nil then obj:update(dt) end
 	end
 end
 
@@ -43,14 +43,14 @@ function love.mousemoved(x, y, dx, dy, istouch)
     mouse.dx = dx
     mouse.dy = dy
     for i, obj in ipairs(globalMouseCallbacks) do 		
-		obj:mousemoved(x, y, dx, dy, istouch)
+		if obj ~= nil then obj:mousemoved(x, y, dx, dy, istouch) end
 	end
 end
 
 function love.mousepressed(x, y, button)
     if sh:curScene().mousepressed ~= nil then sh:curScene().mousepressed(x, y, button) end    
     for i, obj in ipairs(globalMouseCallbacks) do 		
-		obj:mousepressed(x, y, button)
+		if obj ~= nil then obj:mousepressed(x, y, button) end
 	end 
 end
 
