@@ -1,5 +1,6 @@
 local Scene = {
-    load = function()
+    load = function()        
+        -- TODO: replace anime with Pet objects in PetSlots
         PetSlots = {[1] = nil, [2] = nil, [3] = nil, [4] = nil}
         cat_img = Anime:new("cat", love.graphics.newImage("res/images/cat.png"))
         slot_img = Anime:new("slot_img",
