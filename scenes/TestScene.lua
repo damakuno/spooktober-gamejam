@@ -35,7 +35,11 @@ local Scene = {
         -- love.graphics.rectangle("line", 900, 400, 200, 200)
     end,
     update = function(dt) end,
-    keyreleased = function(key) end,
+    keyreleased = function(key) 
+        if key == "s" then
+            slot1.visible = not slot1.visible
+        end
+    end,
     mousepressed = function(x, y, button) end
 }
 

@@ -12,7 +12,8 @@ function Button:new(x, y, width, height, image, hoverImage, object)
         hoverImage = hoverImage or image,
         onclick = function(x, y, button) end,
         onhover = function(x, y, dx, dy, istouch) end,
-        isHover = false
+        isHover = false,
+        visible = true
     }
     setmetatable(object, self)
     self.__index = self
@@ -52,6 +53,7 @@ function Button:mousemoved(x, y, dx, dy, istouch)
 end
 
 function Button:draw()
+    if self.visible ~= true then return end
     if self.isHover == true then
         self.hoverImage:draw(self.x, self.y)
     else
