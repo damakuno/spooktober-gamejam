@@ -1,6 +1,6 @@
 local Pet = {}
 
-function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price)    
+function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price, object)    
     object = object or {
 		name= name,
 		spawnrate = spawnrate,
@@ -32,7 +32,7 @@ function Pet:mousemoved(x, y, dx, dy, istouch)
 end
 
 function Pet:mousepressed(x, y, button)
-	
+
 end
 
 return Pet

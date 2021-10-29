@@ -10,7 +10,8 @@ local Scene = {
             v.price)
         end
 
-        SelectedPet = Pets[1]
+        SelectedPetIndex = 1
+        SelectedPet = Pets[SelectedPetIndex]
 
         PetSlots = {}        
         
@@ -38,6 +39,22 @@ local Scene = {
         if key == "s" then
             for _, slot in pairs(PetSlots) do                
                 slot.button.visible = not slot.button.visible                
+            end
+        end
+        if key == "b" then
+            SelectedPetIndex = SelectedPetIndex - 1
+            SelectedPet = Pets[SelectedPetIndex]   
+            if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex + 1 end
+            if SelectedPet ~= nil then                             
+                status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
+            end
+        end
+        if key == "n" then
+            SelectedPetIndex = SelectedPetIndex + 1
+            SelectedPet = Pets[SelectedPetIndex]
+            if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex - 1 end
+            if SelectedPet ~= nil then                
+                status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
             end
         end
     end,
