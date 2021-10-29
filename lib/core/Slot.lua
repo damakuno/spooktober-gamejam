@@ -15,8 +15,11 @@ function Slot:new(name, x, y, width, height, image, imageHover, object)
 
 	object.button.onclick = function()
 		status = object.name.." clicked"
-	end 
-
+		if SelectedPet ~= nil then
+			object:assignPet(SelectedPet)
+		end
+	end
+	
     setmetatable(object, self)	
     self.__index = self
     return object

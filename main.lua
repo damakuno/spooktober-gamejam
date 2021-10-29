@@ -4,7 +4,7 @@ Anime = require "lib.utils.Anime"
 Button = require "lib.utils.Button"
 LIP = require "lib.utils.LIP"
 Slot = require "lib.core.Slot"
-Pets = require "lib.core.Pet"
+Pet = require "lib.core.Pet"
 
 globalUpdates = {}
 globalMouseCallbacks = {}
@@ -45,7 +45,7 @@ function love.mousemoved(x, y, dx, dy, istouch)
     mouse.dx = dx
     mouse.dy = dy
     for i, obj in ipairs(globalMouseCallbacks) do
-        if obj ~= nil then obj:mousemoved(x, y, dx, dy, istouch) end
+        if obj ~= nil and obj.mousemoved ~=nil then obj:mousemoved(x, y, dx, dy, istouch) end
     end
 end
 
@@ -54,7 +54,7 @@ function love.mousepressed(x, y, button)
         sh:curScene().mousepressed(x, y, button)
     end
     for i, obj in ipairs(globalMouseCallbacks) do
-        if obj ~= nil then obj:mousepressed(x, y, button) end
+        if obj ~= nil and obj.mousepressed ~=nil then obj:mousepressed(x, y, button) end
     end
 end
 
