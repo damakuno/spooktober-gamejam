@@ -17,6 +17,7 @@ function Slot:new(name, x, y, width, height, image, imageHover, object)
 		status = object.name.." clicked"
 		if SelectedPet ~= nil then
 			object:assignPet(SelectedPet)
+			SelectedPet = nil
 		end
 	end
 

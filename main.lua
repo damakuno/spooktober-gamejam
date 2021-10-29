@@ -5,6 +5,7 @@ Button = require "lib.utils.Button"
 LIP = require "lib.utils.LIP"
 Slot = require "lib.core.Slot"
 Pet = require "lib.core.Pet"
+Shop = require "lib.core.Shop"
 
 globalUpdates = {}
 globalMouseCallbacks = {}
