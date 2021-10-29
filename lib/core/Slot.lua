@@ -19,14 +19,14 @@ function Slot:new(name, x, y, width, height, image, imageHover, object)
 			object:assignPet(SelectedPet)
 		end
 	end
-	
+
     setmetatable(object, self)	
     self.__index = self
     return object
 end
 
 function Slot:assignPet(pet)
-	self.pet = pet
+	self.pet = Pet:new(pet.name, pet.spawnrate, pet.width, pet.height, pet.image_idle, pet.image_pet, pet.price)
 	pet.slot = self
 end
 

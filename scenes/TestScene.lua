@@ -1,7 +1,7 @@
 local Scene = {
     load = function()                
         status = "none"
-        Pets = {}        
+        Pets = {}
 
         for k, v in pairs(LIP.load('config/Pets.ini')) do
             Pets[#Pets+1] = Pet:new(v.name, v.spawnrate, v.width, v.height, 
@@ -45,6 +45,7 @@ local Scene = {
             SelectedPetIndex = SelectedPetIndex - 1
             SelectedPet = Pets[SelectedPetIndex]   
             if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex + 1 end
+            SelectedPet = Pets[SelectedPetIndex]   
             if SelectedPet ~= nil then                             
                 status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
             end
@@ -52,7 +53,8 @@ local Scene = {
         if key == "n" then
             SelectedPetIndex = SelectedPetIndex + 1
             SelectedPet = Pets[SelectedPetIndex]
-            if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex - 1 end
+            if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex - 1  end
+            SelectedPet = Pets[SelectedPetIndex]
             if SelectedPet ~= nil then                
                 status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
             end
