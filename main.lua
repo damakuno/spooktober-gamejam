@@ -3,6 +3,8 @@ Timer = require "lib.utils.Timer"
 Anime = require "lib.utils.Anime"
 Button = require "lib.utils.Button"
 LIP = require "lib.utils.LIP"
+Slot = require "lib.core.Slot"
+Pets = require "lib.core.Pet"
 
 globalUpdates = {}
 globalMouseCallbacks = {}
@@ -27,9 +29,9 @@ function love.update(dt)
     -- hero:update(dt)
     sh:curScene().update(dt)
     -- timer1:update(dt)
-    for i, obj in ipairs(globalUpdates) do 		
+    for i, obj in ipairs(globalUpdates) do
         if obj ~= nil then obj:update(dt) end
-	end
+    end
 end
 
 function love.keyreleased(key)
@@ -42,16 +44,18 @@ function love.mousemoved(x, y, dx, dy, istouch)
     mouse.y = y
     mouse.dx = dx
     mouse.dy = dy
-    for i, obj in ipairs(globalMouseCallbacks) do 		
-		if obj ~= nil then obj:mousemoved(x, y, dx, dy, istouch) end
-	end
+    for i, obj in ipairs(globalMouseCallbacks) do
+        if obj ~= nil then obj:mousemoved(x, y, dx, dy, istouch) end
+    end
 end
 
 function love.mousepressed(x, y, button)
-    if sh:curScene().mousepressed ~= nil then sh:curScene().mousepressed(x, y, button) end    
-    for i, obj in ipairs(globalMouseCallbacks) do 		
-		if obj ~= nil then obj:mousepressed(x, y, button) end
-	end 
+    if sh:curScene().mousepressed ~= nil then
+        sh:curScene().mousepressed(x, y, button)
+    end
+    for i, obj in ipairs(globalMouseCallbacks) do
+        if obj ~= nil then obj:mousepressed(x, y, button) end
+    end
 end
 
 function updates(dt, ...)
