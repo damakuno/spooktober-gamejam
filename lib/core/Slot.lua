@@ -20,7 +20,7 @@ function Slot:new(name, x, y, width, height, image, imageHover, bgImage, placeme
 		if SelectedPet ~= nil then
 			object:assignPet(SelectedPet)
 			SelectedPet = nil
-			toggleSlots()			
+			toggleSlots()
 		end
 	end
 

@@ -7,6 +7,8 @@ Slot = require "lib.core.Slot"
 Pet = require "lib.core.Pet"
 Shop = require "lib.core.Shop"
 Window = require "lib.core.Window"
+Spawner = require "lib.core.Spawner"
+Child = require "lib.core.Child"
 
 globalUpdates = {}
 globalMouseCallbacks = {}

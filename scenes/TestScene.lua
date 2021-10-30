@@ -2,6 +2,14 @@ local Scene = {
     load = function()                
         SoulPoints = 1000
         status = "none"
+
+        Children = {}
+
+        for k,v in pairs(LIP.load('config/Children.ini')) do            
+            Children[v.name] = Child:new(v.x, v.y, v.width, v.height, v.duration, 
+            Anime:new(v.name.."_img", love.graphics.newImage(v.image), v.width, v.height, v.duration), v.ticks)
+        end
+
         Pets = {}
 
         for k, v in pairs(LIP.load('config/Pets.ini')) do
@@ -17,7 +25,11 @@ local Scene = {
 
         PetSlots = {}
         
+        -- childSpawner = Spawner:new(0, 0, 1, PetSlots)
+
         Buttons = {}                
+
+        Spawners = {}
         -- loading main layout
         for k, v in pairs(LIP.load('config/MainLayout.ini')) do     
             if v.type == 'Window' then
@@ -39,6 +51,9 @@ local Scene = {
                 Anime:new(v.name.."_img", love.graphics.newImage(v.imageHover))
             )
             end
+            if v.type == 'Spawner' then
+                Spawners[v.name] = Spawner:new(v.x, v.y, v.ticks, Children.GhostChild, PetSlots)
+            end            
         end
 
         Windows = {}
@@ -79,12 +94,14 @@ local Scene = {
             end
         end
 
-        function toggleSlots()
-            -- TODO: show slots based on placement type
+        function toggleSlots()            
             for _, slot in pairs(PetSlots) do                
-                if slot.button.visible == true then slot.button.visible = false 
+                if slot.button.visible == true then
+                    slot.button.visible = false 
+                    Buttons.SummonButton.visible = true
                 elseif slot.button.visible == false then
                     if SelectedPet ~= nil then
+                        Buttons.SummonButton.visible = false
                         if slot.placementType == SelectedPet.placementType then
                             slot.button.visible = true
                         end                
@@ -99,10 +116,12 @@ local Scene = {
         end
 
         love.graphics.setBackgroundColor(0 / 255, 0 / 255, 0 / 255)
-        love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 220, 20)
-        love.graphics.print(status, 220, 40)
-        love.graphics.print("Soul Points: "..SoulPoints, 220, 60)
-
+        love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 230, 10)
+        love.graphics.print(status, 230, 30)
+        love.graphics.print("Soul Points: "..SoulPoints, 230, 50)
+        if Spawners["childSpawner"] ~= nil then
+            love.graphics.print("Spawn Rate: "..Spawners["childSpawner"].totalSpawnRate, 230, 70)        
+        end
         for _, slot in pairs(PetSlots) do
             if slot ~=nil then slot:draw() end
         end
@@ -112,9 +131,12 @@ local Scene = {
         for _, window in pairs(Windows) do
             if window ~= nil then window:draw() end
         end
-        for _, button in pairs(ShopButtons) do
+        for _, button in pairs(ShopButtons) do            
             if button ~= nil then button:draw() end
         end
+        for _, child in pairs(Spawners.childSpawner.children) do            
+            if child~= nil then child:draw() end
+        end 
     end,
     update = function(dt) end,
     keyreleased = function(key) 
@@ -125,6 +147,9 @@ local Scene = {
         end
         if key == "r" then
             SoulPoints = 1000
+        end
+        if key == "f" then
+            Spawners.childSpawner:spawn()
         end
     end,
     mousepressed = function(x, y, button) end
