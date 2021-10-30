@@ -75,15 +75,21 @@ local Scene = {
             Windows.Shop.visible = not Windows.Shop.visible
             for _, button in pairs(ShopButtons) do
                 if button.visible == true then button.visible = false 
-                elseif button.visible == false then button.visible = true end                
+                elseif button.visible == false then button.visible = true end       
             end
         end
 
         function toggleSlots()
             -- TODO: show slots based on placement type
-            for _, slot in pairs(PetSlots) do
+            for _, slot in pairs(PetSlots) do                
                 if slot.button.visible == true then slot.button.visible = false 
-                elseif slot.button.visible == false then slot.button.visible = true end                
+                elseif slot.button.visible == false then
+                    if SelectedPet ~= nil then
+                        if slot.placementType == SelectedPet.placementType then
+                            slot.button.visible = true
+                        end                
+                    end
+                end
             end
         end
     end,

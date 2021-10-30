@@ -19,6 +19,26 @@ function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price, p
     return object
 end
 
+function Pet:start()
+    if self.visible ~= true then return end
+    if self.isPetted == true then
+        self.image_pet.loop = true
+        self.image_pet:start()
+    else
+        self.image_idle.loop = true
+        self.image_idle:start()
+    end
+end
+
+function Pet:stop()
+    if self.visible ~= true then return end
+    if self.isPetted == true then
+        self.image_pet:stop()
+    else
+        self.image_idle:stop()
+    end
+end
+
 function Pet:draw(x, y)
     if self.visible ~= true then return end
     if self.isPetted == true then
