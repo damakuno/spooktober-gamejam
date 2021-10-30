@@ -13,11 +13,17 @@ local Scene = {
         
         SelectedPet = nil
 
+        BGWindows = {}
+
         PetSlots = {}
         
         Buttons = {}                
         -- loading main layout
-        for k, v in pairs(LIP.load('config/MainLayout.ini')) do                
+        for k, v in pairs(LIP.load('config/MainLayout.ini')) do     
+            if v.type == 'Window' then
+                BGWindows[v.name] = Window:new(v.x, v.y, v.width, v.height,
+                Anime:new(v.name.."_img", love.graphics.newImage(v.image)))
+            end           
             if v.type == 'Slot' then                               
                 PetSlots[v.name] = Slot:new(v.name, v.x, v.y, v.width, v.height,
                         Anime:new("slot_img", love.graphics.newImage(v.image)),
@@ -76,10 +82,15 @@ local Scene = {
         end
     end,
     draw = function()
+        for _, bg in pairs(BGWindows) do            
+            if bg ~= nil then bg:draw() end
+        end
+
         love.graphics.setBackgroundColor(0 / 255, 0 / 255, 0 / 255)
         love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 20, 20)
         love.graphics.print(status, 20, 40)
         love.graphics.print("Soul Points: "..SoulPoints, 20, 60)
+        
         for _, slot in pairs(PetSlots) do
             if slot ~=nil then slot:draw() end
         end

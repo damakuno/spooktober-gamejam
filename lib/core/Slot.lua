@@ -29,11 +29,13 @@ function Slot:new(name, x, y, width, height, image, imageHover, bgImage, placeme
 end
 
 function Slot:assignPet(pet)
+	-- TODO: check placementType before assigning, or even showing the slot in the first place
 	self.pet = Pet:new(pet.name, pet.spawnrate, pet.width, pet.height, pet.image_idle, pet.image_pet, pet.price)
 	pet.slot = self
 end
 
 function Slot:draw() 
+	-- TODO: check placementType before assigning, or even showing the slot in the first place
 	self.bgImage:draw(self.x, self.y)
 	self.button:draw()
 	if self.pet ~= nil then 

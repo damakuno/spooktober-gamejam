@@ -6,6 +6,7 @@ LIP = require "lib.utils.LIP"
 Slot = require "lib.core.Slot"
 Pet = require "lib.core.Pet"
 Shop = require "lib.core.Shop"
+Window = require "lib.core.Window"
 
 globalUpdates = {}
 globalMouseCallbacks = {}
