@@ -11,7 +11,7 @@ function Slot:new(name, x, y, width, height, image, imageHover, bgImage, placeme
         imageHover = imageHover,
 		button = Button:new(x, y, width, height, image, imageHover),
 		pet = nil,
-		bgImage = bgImage,
+		bgImage = bgImage,		
 		placementType = placementType or "summon"
     }
 
@@ -20,6 +20,7 @@ function Slot:new(name, x, y, width, height, image, imageHover, bgImage, placeme
 		if SelectedPet ~= nil then
 			object:assignPet(SelectedPet)
 			SelectedPet = nil
+			toggleSlots()			
 		end
 	end
 

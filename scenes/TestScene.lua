@@ -30,7 +30,8 @@ local Scene = {
                         Anime:new("slot_hover_img", love.graphics.newImage(v.imageHover)),
                         Anime:new("slot_hover_img", love.graphics.newImage(v.bgImage)),
                         v.placementType
-                    )                
+                    )  
+                PetSlots[v.name].button.visible = false              
             end
             if v.type == 'Button' then
                 Buttons[v.name] = Button:new(v.x, v.y, v.width, v.height, 
@@ -59,6 +60,7 @@ local Scene = {
                     SoulPoints = SoulPoints - Pets[v.pet].price
                     SelectedPet = Pets[v.pet]
                     toggleShop()
+                    toggleSlots()
                 end
             end
             end
@@ -75,6 +77,10 @@ local Scene = {
                 if button.visible == true then button.visible = false 
                 elseif button.visible == false then button.visible = true end                
             end
+        end
+
+        function toggleSlots()
+            -- TODO: show slots based on placement type
             for _, slot in pairs(PetSlots) do
                 if slot.button.visible == true then slot.button.visible = false 
                 elseif slot.button.visible == false then slot.button.visible = true end                
@@ -87,10 +93,10 @@ local Scene = {
         end
 
         love.graphics.setBackgroundColor(0 / 255, 0 / 255, 0 / 255)
-        love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 20, 20)
-        love.graphics.print(status, 20, 40)
-        love.graphics.print("Soul Points: "..SoulPoints, 20, 60)
-        
+        love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 220, 20)
+        love.graphics.print(status, 220, 40)
+        love.graphics.print("Soul Points: "..SoulPoints, 220, 60)
+
         for _, slot in pairs(PetSlots) do
             if slot ~=nil then slot:draw() end
         end
@@ -114,24 +120,6 @@ local Scene = {
         if key == "r" then
             SoulPoints = 1000
         end
-        -- if key == "b" then
-        --     SelectedPetIndex = SelectedPetIndex - 1
-        --     SelectedPet = Pets[SelectedPetIndex]   
-        --     if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex + 1 end
-        --     SelectedPet = Pets[SelectedPetIndex]   
-        --     if SelectedPet ~= nil then                             
-        --         status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
-        --     end
-        -- end
-        -- if key == "n" then
-        --     SelectedPetIndex = SelectedPetIndex + 1
-        --     SelectedPet = Pets[SelectedPetIndex]
-        --     if SelectedPet == nil then SelectedPetIndex = SelectedPetIndex - 1  end
-        --     SelectedPet = Pets[SelectedPetIndex]
-        --     if SelectedPet ~= nil then                
-        --         status = "SelectedPetIndex: "..SelectedPetIndex.." PetName: "..SelectedPet.name
-        --     end
-        -- end
     end,
     mousepressed = function(x, y, button) end
 }
