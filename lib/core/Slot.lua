@@ -1,6 +1,6 @@
 local Slot = {}
 
-function Slot:new(name, x, y, width, height, image, imageHover, object)
+function Slot:new(name, x, y, width, height, image, imageHover, bgImage, placementType, object)
     object = object or {
         name = name,
         x = x,
@@ -10,7 +10,9 @@ function Slot:new(name, x, y, width, height, image, imageHover, object)
         image = image,
         imageHover = imageHover,
 		button = Button:new(x, y, width, height, image, imageHover),
-		pet = nil
+		pet = nil,
+		bgImage = bgImage,
+		placementType = placementType or "summon"
     }
 
 	object.button.onclick = function()
@@ -32,6 +34,7 @@ function Slot:assignPet(pet)
 end
 
 function Slot:draw() 
+	self.bgImage:draw(self.x, self.y)
 	self.button:draw()
 	if self.pet ~= nil then 
 		self.pet:draw(self.x, self.y)

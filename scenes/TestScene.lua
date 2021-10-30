@@ -8,7 +8,7 @@ local Scene = {
             Pets[v.name] = Pet:new(v.name, v.spawnrate, v.width, v.height, 
             Anime:new("image_idle"..v.name, love.graphics.newImage(v.image_idle), v.width, v.height, v.idle_duration),
             Anime:new("image_pet"..v.name, love.graphics.newImage(v.image_pet), v.width, v.height, v.pet_duration), 
-            v.price)
+            v.price, v.placementType)
         end
         
         SelectedPet = nil
@@ -21,7 +21,9 @@ local Scene = {
             if v.type == 'Slot' then                               
                 PetSlots[v.name] = Slot:new(v.name, v.x, v.y, v.width, v.height,
                         Anime:new("slot_img", love.graphics.newImage(v.image)),
-                        Anime:new("slot_hover_img", love.graphics.newImage(v.imageHover))
+                        Anime:new("slot_hover_img", love.graphics.newImage(v.imageHover)),
+                        Anime:new("slot_hover_img", love.graphics.newImage(v.bgImage)),
+                        v.placementType
                     )                
             end
             if v.type == 'Button' then

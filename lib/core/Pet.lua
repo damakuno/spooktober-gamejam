@@ -1,6 +1,6 @@
 local Pet = {}
 
-function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price, object)    
+function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price, placementType, object)    
     object = object or {
 		name= name,
 		spawnrate = spawnrate,
@@ -9,6 +9,7 @@ function Pet:new(name, spawnrate, width, height, image_idle, image_pet, price, o
 		image_idle = image_idle,
 		image_pet = image_pet or image_idle,
 		price = price or 0,
+        placementType = placementType or "summon",
 		isPetted = false,
         visible = true
     }
