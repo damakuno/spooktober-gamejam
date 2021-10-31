@@ -223,9 +223,9 @@ local Scene = {
         -- if key == "f" then
         --     Spawners.childSpawner:spawn(Children.GhostChild)
         -- end
-        -- if key == "g" then
-        --     sh:setScene(2)
-        -- end
+        if key == "g" then
+            sh:setScene(2)
+        end
     end,
     mousepressed = function(x, y, button) end
 }
