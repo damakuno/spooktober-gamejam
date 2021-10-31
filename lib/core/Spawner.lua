@@ -36,7 +36,8 @@ end
 
 function Spawner:spawn(child)
 	local newChild = Child:new(child.x + randomInt(-200, 200), child.y, child.width, child.height, child.duration,
-	 Anime:new("child_img", child.image.spriteSheet, child.width, child.height, child.duration), child.ticks)
+	 Anime:new("child_img", child.image.spriteSheet, child.width, child.height, 1),
+	 Anime:new("child_img", child.image_dead.spriteSheet, child.width, child.height, child.duration), child.ticks)
 	status = "spawn function called x: "..newChild.x.." y: "..newChild.y
 	newChild:start()
 	table.insert(self.children, newChild)

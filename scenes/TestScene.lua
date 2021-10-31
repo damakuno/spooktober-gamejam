@@ -1,5 +1,7 @@
 local Scene = {
-    load = function()                
+    load = function()  
+        font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 40)
+        shop_font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 12)
         SoulPoints = 1000
         status = "none"
 
@@ -7,7 +9,8 @@ local Scene = {
 
         for k,v in pairs(LIP.load('config/Children.ini')) do            
             Children[v.name] = Child:new(v.x, v.y, v.width, v.height, v.duration, 
-            Anime:new(v.name.."_img", love.graphics.newImage(v.image), v.width, v.height, v.duration), v.ticks)
+            Anime:new(v.name.."_img", love.graphics.newImage(v.image), v.width, v.height, 1),
+            Anime:new(v.name.."_img_dead", love.graphics.newImage(v.image_dead), v.width, v.height, v.duration), v.ticks)
         end
 
         Pets = {}
@@ -182,6 +185,21 @@ local Scene = {
         for _, button in pairs(DecorShopButtons) do            
             if button ~= nil then button:draw() end
         end
+
+        --draw text
+        love.graphics.print("DECOR", font, 60, 360)
+        love.graphics.print("PETS", font, 70, 590)
+        love.graphics.print("SOULS: "..SoulPoints, font, 1000, 20)
+
+        if SelectedPet~= nil then
+            local ox = mouse.x - (SelectedPet.image_idle.width / 2)
+            local oy = mouse.y - (SelectedPet.image_idle.height / 2)
+            if SelectedPet.placementType == "hanging" then
+                ox = mouse.x - (SelectedPet.image_idle.width / 2)
+                oy = mouse.y
+            end
+            SelectedPet.image_idle:draw(ox, oy)
+        end        
     end,
     update = function(dt) end,
     keyreleased = function(key) 

@@ -32,7 +32,10 @@ end
 function Slot:assignPet(pet)
 	-- TODO: check placementType before assigning, or even showing the slot in the first place
 	if pet.placementType == self.placementType then
-		self.pet = Pet:new(pet.name, pet.spawnrate, pet.width, pet.height, pet.image_idle, pet.image_pet, pet.price)
+		self.pet = Pet:new(pet.name, pet.spawnrate, pet.width, pet.height, 
+		Anime:new("image_idle", pet.image_idle.spriteSheet, pet.width, pet.height, pet.duration), 
+		Anime:new("image_pet", pet.image_pet.spriteSheet, pet.width, pet.height, pet.duration), 
+		pet.price)
 		self.pet:start()
 	end
 	pet.slot = self
