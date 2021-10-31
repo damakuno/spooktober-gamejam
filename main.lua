@@ -19,9 +19,22 @@ mouse = {x = 0, y = 0, dx = 0, dy = 0, pressed = false}
 
 function love.load()
     love.window.setMode(1344, 768)
+    settings = LIP.load('config/Settings.ini')
+    sfx = {
+       coin = love.audio.newSource("res/audio/coin.wav", "static")
+    } 
+    music = {
+        bgm = love.audio.newSource("res/audio/bgm.mp3", "stream")        
+    }
+    sfx.coin:setVolume(settings.Sound.sfx_volume)
+    music.bgm:setLooping(true)
+    music.bgm:play()
+    music.bgm:setVolume(settings.Sound.music_volume)
+    font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 40)
+    shop_font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 24)
     -- load assets (sounds, images)
     -- hero = Anime:new("hero", love.graphics.newImage("res/images/oldHero.png"), 16, 18, 1, 1, true, true)    
-    sh:setScene(99)
+    sh:setScene(1)
 end
 
 function love.draw()

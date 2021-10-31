@@ -1,12 +1,14 @@
 local Scene = {
     load = function()  
-        sfx = {
-           coin = love.audio.newSource("res/audio/coin.wav", "static")
-        } 
-        font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 40)
-        shop_font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 24)
-        SoulPoints = 1000
+        SoulPoints = 200
         status = "none"
+
+        Timer:new(1, function()
+            if SoulPoints > 1000 then
+                sh:setScene(2)
+                globalUpdates = {}
+            end
+        end)
 
         Children = {}
 
@@ -163,12 +165,12 @@ local Scene = {
         end
 
         love.graphics.setBackgroundColor(0 / 255, 0 / 255, 0 / 255)
-        love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 230, 10)
-        love.graphics.print(status, 230, 30)
-        love.graphics.print("Soul Points: "..SoulPoints, 230, 50)
-        if Spawners["childSpawner"] ~= nil then
-            love.graphics.print("Spawn Rate: "..Spawners["childSpawner"].totalSpawnRate, 230, 70)        
-        end
+        -- love.graphics.print("x: " .. mouse.x .. " y: " .. mouse.y, 230, 10)
+        -- love.graphics.print(status, 230, 30)
+        -- love.graphics.print("Soul Points: "..SoulPoints, 230, 50)
+        -- if Spawners["childSpawner"] ~= nil then
+        --     love.graphics.print("Spawn Rate: "..Spawners["childSpawner"].totalSpawnRate, 230, 70)        
+        -- end
         
         --draw text
         love.graphics.print("DECOR", font, 60, 360)
@@ -210,17 +212,20 @@ local Scene = {
     end,
     update = function(dt) end,
     keyreleased = function(key) 
-        if key == "s" then
-            for _, slot in pairs(PetSlots) do                
-                slot.button.visible = not slot.button.visible                
-            end
-        end
-        if key == "r" then
-            SoulPoints = 1000
-        end
-        if key == "f" then
-            Spawners.childSpawner:spawn(Children.GhostChild)
-        end
+        -- if key == "s" then
+        --     for _, slot in pairs(PetSlots) do                
+        --         slot.button.visible = not slot.button.visible                
+        --     end
+        -- end
+        -- if key == "r" then
+        --     SoulPoints = 1000
+        -- end
+        -- if key == "f" then
+        --     Spawners.childSpawner:spawn(Children.GhostChild)
+        -- end
+        -- if key == "g" then
+        --     sh:setScene(2)
+        -- end
     end,
     mousepressed = function(x, y, button) end
 }

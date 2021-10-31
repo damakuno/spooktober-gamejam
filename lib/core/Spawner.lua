@@ -18,7 +18,7 @@ function Spawner:new(x, y, ticks, Slots, object)
 			end
 		end),		
 		spawnCounter = 0,
-		spawnAtValue = 500,
+		spawnAtValue = 200,
 		children = {},
 		totalSpawnRate = 0,
 		visible = true
