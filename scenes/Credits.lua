@@ -1,6 +1,7 @@
 local Scene = {
 	load = function()	
 	-- see if the file exists
+	sfx.coin:setVolume(0)
 	music.bgm:setVolume(0.2)
 	function file_exists(file)
 		local f = io.open(file, "rb")
