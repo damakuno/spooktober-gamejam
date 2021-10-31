@@ -71,3 +71,7 @@ function draws(...)
     local args = {...}
     for i, arg in ipairs(args) do arg:draw() end
 end
+
+function randomInt(min, max)
+    return math.floor(math.random() * (max - min) + min)
+end

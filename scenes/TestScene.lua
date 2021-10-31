@@ -52,7 +52,7 @@ local Scene = {
             )
             end
             if v.type == 'Spawner' then
-                Spawners[v.name] = Spawner:new(v.x, v.y, v.ticks, Children.GhostChild, PetSlots)
+                Spawners[v.name] = Spawner:new(v.x, v.y, v.ticks, PetSlots)
             end            
         end
 
@@ -94,14 +94,53 @@ local Scene = {
             end
         end
 
+        DecorWindows = {}
+        DecorShopButtons = {}
+        --Decor shop layout
+        for k, v in pairs(LIP.load('config/DecorShopLayout.ini')) do
+            if v.type == 'Shop' then
+                DecorWindows[v.name] = Shop:new(v.x, v.y, v.widht, v.height, Anime:new("shop_img", love.graphics.newImage(v.image)))
+                DecorWindows[v.name].visible = false
+            end
+            if v.type == 'Button' then
+                DecorShopButtons[v.name] = Button:new(v.x, v.y, v.width, v.height, 
+                Anime:new(v.name.."_img", love.graphics.newImage(v.image)),
+                Anime:new(v.name.."_img", love.graphics.newImage(v.imageHover))
+            )
+            DecorShopButtons[v.name].visible = false
+            DecorShopButtons[v.name].onclick = function()
+                if SoulPoints - Pets[v.pet].price > -1 then
+                    SoulPoints = SoulPoints - Pets[v.pet].price
+                    SelectedPet = Pets[v.pet]
+                    toggleDecorShop()
+                    toggleSlots()
+                end
+            end
+            end
+        end
+
+        Buttons.DecorButton.onclick = function()
+            status = "Decor Button Clicked"
+            toggleDecorShop()
+        end
+
+        function toggleDecorShop()
+            DecorWindows.DecorShop.visible = not DecorWindows.DecorShop.visible
+            for _, button in pairs(DecorShopButtons) do
+                if button.visible == true then button.visible = false 
+                elseif button.visible == false then button.visible = true end       
+            end
+        end
+
         function toggleSlots()            
             for _, slot in pairs(PetSlots) do                
                 if slot.button.visible == true then
                     slot.button.visible = false 
-                    Buttons.SummonButton.visible = true
+                    -- Buttons.SummonButton.visible = true
                 elseif slot.button.visible == false then
                     if SelectedPet ~= nil then
-                        Buttons.SummonButton.visible = false
+                        -- Buttons.SummonButton.visible = false
+                        -- status = "slot.placementType: "..slot.placementType.." SelectedPet.placementType: "..SelectedPet.placementType
                         if slot.placementType == SelectedPet.placementType then
                             slot.button.visible = true
                         end                
@@ -128,15 +167,21 @@ local Scene = {
         for _, button in pairs(Buttons) do
             if button ~=nil then button:draw() end
         end
+        for _, child in pairs(Spawners.childSpawner.children) do            
+            if child~= nil then child:draw() end
+        end 
         for _, window in pairs(Windows) do
             if window ~= nil then window:draw() end
         end
         for _, button in pairs(ShopButtons) do            
             if button ~= nil then button:draw() end
         end
-        for _, child in pairs(Spawners.childSpawner.children) do            
-            if child~= nil then child:draw() end
-        end 
+        for _, window in pairs(DecorWindows) do
+            if window ~= nil then window:draw() end
+        end
+        for _, button in pairs(DecorShopButtons) do            
+            if button ~= nil then button:draw() end
+        end
     end,
     update = function(dt) end,
     keyreleased = function(key) 
@@ -149,7 +194,7 @@ local Scene = {
             SoulPoints = 1000
         end
         if key == "f" then
-            Spawners.childSpawner:spawn()
+            Spawners.childSpawner:spawn(Children.GhostChild)
         end
     end,
     mousepressed = function(x, y, button) end
