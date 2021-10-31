@@ -1,7 +1,10 @@
 local Scene = {
     load = function()  
+        sfx = {
+           coin = love.audio.newSource("res/audio/coin.wav", "static")
+        } 
         font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 40)
-        shop_font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 12)
+        shop_font = love.graphics.newFont("res/fonts/chuck_buck.ttf", 24)
         SoulPoints = 1000
         status = "none"
 
@@ -73,6 +76,7 @@ local Scene = {
                 Anime:new(v.name.."_img", love.graphics.newImage(v.imageHover))
             )
             ShopButtons[v.name].visible = false
+            ShopButtons[v.name].price = Pets[v.pet].price
             ShopButtons[v.name].onclick = function()
                 if SoulPoints - Pets[v.pet].price > -1 then
                     SoulPoints = SoulPoints - Pets[v.pet].price
@@ -111,6 +115,7 @@ local Scene = {
                 Anime:new(v.name.."_img", love.graphics.newImage(v.imageHover))
             )
             DecorShopButtons[v.name].visible = false
+            DecorShopButtons[v.name].price = Pets[v.pet].price
             DecorShopButtons[v.name].onclick = function()
                 if SoulPoints - Pets[v.pet].price > -1 then
                     SoulPoints = SoulPoints - Pets[v.pet].price
@@ -164,6 +169,12 @@ local Scene = {
         if Spawners["childSpawner"] ~= nil then
             love.graphics.print("Spawn Rate: "..Spawners["childSpawner"].totalSpawnRate, 230, 70)        
         end
+        
+        --draw text
+        love.graphics.print("DECOR", font, 60, 360)
+        love.graphics.print("PETS", font, 70, 590)
+        love.graphics.print("SOULS: "..SoulPoints, font, 1000, 20)
+
         for _, slot in pairs(PetSlots) do
             if slot ~=nil then slot:draw() end
         end
@@ -186,10 +197,6 @@ local Scene = {
             if button ~= nil then button:draw() end
         end
 
-        --draw text
-        love.graphics.print("DECOR", font, 60, 360)
-        love.graphics.print("PETS", font, 70, 590)
-        love.graphics.print("SOULS: "..SoulPoints, font, 1000, 20)
 
         if SelectedPet~= nil then
             local ox = mouse.x - (SelectedPet.image_idle.width / 2)

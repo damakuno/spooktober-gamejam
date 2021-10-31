@@ -16,6 +16,7 @@ function Child:new(x, y, width, height, duration, image, image_dead, ticks, obje
 			if object.y < object.y_threshold then
 				-- object.visible = false
 				if object.consumed == false then
+					sfx.coin:play()
 					SoulPoints = SoulPoints + 10
 					object.consumed = true
 				end

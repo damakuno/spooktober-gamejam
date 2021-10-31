@@ -62,6 +62,9 @@ function Button:draw()
     else
         self.image:draw(self.x, self.y)
     end
+    if self.price ~=nil then
+        love.graphics.print(self.price.." SOULS", shop_font, self.x + self.image.width / 4, self.y + self.image.height + 10)
+    end
 end
 
 return Button
